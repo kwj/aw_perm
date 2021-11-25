@@ -1,10 +1,10 @@
-let perm_sigma arr =
+let op_sigma arr =
   let len = Array.length arr in
   let tmp = arr.(0) in
   Array.blit arr 1 arr 0 (len - 1);
   arr.(len - 1) <- tmp
 
-let perm_tau arr =
+let op_tau arr =
   let tmp = arr.(0) in
   arr.(0) <- arr.(1); arr.(1) <- tmp
 
@@ -67,9 +67,9 @@ let aw_perm_generator lst =
      let a_idx = Array.copy trigger in
      let a_idx_end = Array.copy trigger in
      let end_flag = ref false in
-     perm_tau a_idx;
-     perm_sigma a_idx_end;
-     perm_tau a_idx_end;
+     op_tau a_idx;
+     op_sigma a_idx_end;
+     op_tau a_idx_end;
      let next () =
        if !end_flag = true then
          None
@@ -78,7 +78,7 @@ let aw_perm_generator lst =
          if Array.for_all2 (=) a_idx a_idx_end then (
            end_flag := true
          ) else (
-           if is_tau a_idx trigger then perm_tau a_idx else perm_sigma a_idx;
+           if is_tau a_idx trigger then op_tau a_idx else op_sigma a_idx;
          );
          Some result
      in
