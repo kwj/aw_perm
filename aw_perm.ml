@@ -1,4 +1,3 @@
- 
 let perm_sigma arr =
   let len = Array.length arr in
   let tmp = arr.(0) in
@@ -23,18 +22,18 @@ let is_tau arr t_arr =
     false
   else
     let len = Array.length arr in
-    let idx = ((find_idx len arr) + 1) mod len in
+    let idx = ((find_idx (len - 1) arr) + 1) mod len in
     if idx <> 1 then (
-      arr.(1) = (arr.(idx) mod (len - 1)) + 1
+      arr.(1) = (arr.(idx) + 1) mod (len - 1)
     ) else (
-      arr.(1) = (arr.(2) mod (len - 1)) + 1
+      arr.(1) = (arr.(2) + 1) mod (len - 1)
     )
 
 let constr_lst arr lst =
   let rec reorder l acc =
     match l with
     | [] -> List.rev acc
-    | hd :: tl -> reorder tl ((List.nth lst (hd - 1)) :: acc)
+    | hd :: tl -> reorder tl ((List.nth lst hd) :: acc)
   in
   reorder (Array.to_list arr) []
 
@@ -66,7 +65,7 @@ let aw_perm_generator lst =
      in
      next
   | _ ->
-     let trigger = Array.init len (fun i -> len - i) in
+     let trigger = Array.init len (fun i -> len - 1 - i) in
      let a_idx = Array.copy trigger in
      perm_tau a_idx;
      let next () =
