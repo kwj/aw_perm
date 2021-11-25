@@ -8,26 +8,30 @@ let op_tau arr =
   let tmp = arr.(0) in
   arr.(0) <- arr.(1); arr.(1) <- tmp
 
-let find_idx elm arr =
+let find_r arr =
+  let len = Array.length arr in
   let rec aux i =
-    if i < 0 then
-      failwith "index error"
+    if i < 0 then failwith "index error"
     else
-      if arr.(i) = elm then i else aux (pred i)
+      if arr.(i) = len - 1 then
+        match i with
+        | 0 -> 2
+        | _ -> (i + 1) mod len
+      else
+        aux (pred i)
   in
-  aux ((Array.length arr) - 1)
+  aux (len - 1)
 
 let is_tau arr t_arr =
   if Array.for_all2 (=) arr t_arr then
     false
   else
     let len = Array.length arr in
-    let idx = ((find_idx (len - 1) arr) + 1) mod len in
-    if idx <> 1 then (
-      arr.(1) = (arr.(idx) + 1) mod (len - 1)
-    ) else (
-      arr.(1) = (arr.(2) + 1) mod (len - 1)
-    )
+    match arr.(find_r arr) with
+    | r when r = len - 2 ->
+       arr.(1) = 0
+    | r ->
+       arr.(1) = r + 1
 
 let constr_lst arr lst =
   let rec reorder l acc =
