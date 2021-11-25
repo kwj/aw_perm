@@ -34,6 +34,32 @@ val perm : unit -> string list option = <fun>
 #
 ```
 
+```ocaml
+# let p = aw_perm_generator [(1, [1;2]); (3, [3;4;5]); (5, [6])];;
+val p : unit -> (int * int list) list option = <fun>
+# p();;
+- : (int * int list) list option =
+Some [(3, [3; 4; 5]); (5, [6]); (1, [1; 2])]
+# p();;
+- : (int * int list) list option =
+Some [(5, [6]); (1, [1; 2]); (3, [3; 4; 5])]
+# p();;
+- : (int * int list) list option =
+Some [(1, [1; 2]); (5, [6]); (3, [3; 4; 5])]
+# p();;
+- : (int * int list) list option =
+Some [(5, [6]); (3, [3; 4; 5]); (1, [1; 2])]
+# p();;
+- : (int * int list) list option =
+Some [(3, [3; 4; 5]); (1, [1; 2]); (5, [6])]
+# p();;
+- : (int * int list) list option =
+Some [(1, [1; 2]); (3, [3; 4; 5]); (5, [6])]
+# p();;
+- : (int * int list) list option = None
+#
+```
+
 ## Caution
 This generator is not thread safe.
 
