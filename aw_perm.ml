@@ -38,14 +38,11 @@ let constr_lst arr lst =
   reorder (Array.to_list arr) []
 
 let aw_perm_generator lst =
-  let rec factorial n =
-    if n <= 0 then 1 else n * factorial (n - 1)
-  in
   let len = List.length lst in
-  let cnt = ref (factorial len) in
   match len with
   | n when n <= 0 -> failwith "size error"
   | 1 ->
+     let cnt = ref 1 in
      let next () =
        if !cnt = 0 then None
        else (
@@ -55,6 +52,7 @@ let aw_perm_generator lst =
      in
      next
   | 2 ->
+     let cnt = ref 2 in
      let l = ref [[(List.nth lst 0); (List.nth lst 1)]; [(List.nth lst 1); (List.nth lst 0)]] in
      let next () =
        if !cnt = 0 then None
@@ -67,15 +65,21 @@ let aw_perm_generator lst =
   | _ ->
      let trigger = Array.init len (fun i -> len - 1 - i) in
      let a_idx = Array.copy trigger in
+     let a_idx_end = Array.copy trigger in
+     let end_flag = ref false in
      perm_tau a_idx;
+     perm_sigma a_idx_end;
+     perm_tau a_idx_end;
      let next () =
-       if !cnt = 0 then
+       if !end_flag = true then
          None
-       else (
-         cnt := !cnt - 1;
+       else
          let result = constr_lst a_idx lst in
-         if is_tau a_idx trigger then perm_tau a_idx else perm_sigma a_idx;
+         if Array.for_all2 (=) a_idx a_idx_end then (
+           end_flag := true
+         ) else (
+           if is_tau a_idx trigger then perm_tau a_idx else perm_sigma a_idx;
+         );
          Some result
-       )
      in
      next
