@@ -34,6 +34,9 @@ val perm : unit -> string list option = <fun>
 #
 ```
 
+## Caution
+This generator is not thread safe.
+
 ## License
 
 MIT License
