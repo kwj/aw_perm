@@ -1,6 +1,11 @@
 # aw_perm
 A test implementation of permutation generator which based on Hamilton path[1][2].
 
+## Interface
+```ocaml
+val aw_perm_generator : 'a list -> unit -> 'a list option
+```
+
 ## Usage
 ```ocaml
 # let perm = aw_perm_generator [1; 2; 3];;
