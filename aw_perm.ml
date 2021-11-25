@@ -48,7 +48,8 @@ let aw_perm_generator lst =
   | n when n <= 0 -> failwith "size error"
   | 1 ->
      let next () =
-       if !cnt = 0 then None else (
+       if !cnt = 0 then None
+       else (
          cnt := !cnt - 1;
          Some lst
        )
@@ -57,7 +58,8 @@ let aw_perm_generator lst =
   | 2 ->
      let l = ref [[(List.nth lst 0); (List.nth lst 1)]; [(List.nth lst 1); (List.nth lst 0)]] in
      let next () =
-       if !cnt = 0 then None else (
+       if !cnt = 0 then None
+       else (
          cnt := !cnt - 1;
          Some (List.nth !l !cnt)
        )
