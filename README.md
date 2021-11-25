@@ -40,27 +40,27 @@ val perm : unit -> string list option = <fun>
 ```
 
 ```ocaml
-# let p = aw_perm_generator [(1, [1;2]); (3, [3;4;5]); (5, [6])];;
-val p : unit -> (int * int list) list option = <fun>
-# p();;
+# let perm = aw_perm_generator [(1, [1;2]); (3, [3;4;5]); (5, [6])];;
+val perm : unit -> (int * int list) list option = <fun>
+# perm();;
 - : (int * int list) list option =
 Some [(3, [3; 4; 5]); (5, [6]); (1, [1; 2])]
-# p();;
+# perm();;
 - : (int * int list) list option =
 Some [(5, [6]); (1, [1; 2]); (3, [3; 4; 5])]
-# p();;
+# perm();;
 - : (int * int list) list option =
 Some [(1, [1; 2]); (5, [6]); (3, [3; 4; 5])]
-# p();;
+# perm();;
 - : (int * int list) list option =
 Some [(5, [6]); (3, [3; 4; 5]); (1, [1; 2])]
-# p();;
+# perm();;
 - : (int * int list) list option =
 Some [(3, [3; 4; 5]); (1, [1; 2]); (5, [6])]
-# p();;
+# perm();;
 - : (int * int list) list option =
 Some [(1, [1; 2]); (3, [3; 4; 5]); (5, [6])]
-# p();;
+# perm();;
 - : (int * int list) list option = None
 #
 ```
