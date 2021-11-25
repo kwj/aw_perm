@@ -1,5 +1,5 @@
 # aw_perm
-An implementation of permutation generator which based on the paper of the Hamiltonicity of Cayley graph[*1].
+A test implementation of permutation generator which based on the paper of the Hamiltonicity of Cayley graph[*1].
 
 ## Usage
 ```ocaml
